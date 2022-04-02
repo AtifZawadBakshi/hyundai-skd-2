@@ -6,7 +6,7 @@ const Header = () => {
       <div className="row">
         <div className="col-md-6 col-sm-12">
           <div className="title">
-            <h3 style={{ color: "white" }}>Dashboard</h3>
+            <h3 style={{ color: "white" }}>Dashboard - FTL Hyundai SKD</h3>
           </div>
         </div>
       </div>
