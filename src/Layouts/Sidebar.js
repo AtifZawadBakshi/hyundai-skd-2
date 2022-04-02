@@ -52,7 +52,7 @@ const Sidebar = () => {
       </div>
       <div className="left-side-bar">
         <div className="brand-logo">
-          <a href="index.html">
+          <Link to="/dashboard">
             <img
               src="vendors/images/hyundai-motor-company-logo.svg"
               alt
@@ -63,7 +63,7 @@ const Sidebar = () => {
               alt
               className="light-logo"
             />
-          </a>
+          </Link>
           <div className="close-sidebar" data-toggle="left-sidebar-close">
             <i className="ion-close-round" />
           </div>
