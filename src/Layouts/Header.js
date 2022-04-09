@@ -27,9 +27,9 @@ const Header = () => {
               role="button"
               data-toggle="dropdown"
             >
-              <span className="user-icon">
+              {/* <span className="user-icon">
                 <img src="vendors/images/photo1.jpg" alt />
-              </span>
+              </span> */}
               <span className="user-name">Atif Zawad Bakshi</span>
             </a>
             <div className="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">

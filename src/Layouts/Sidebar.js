@@ -59,7 +59,7 @@ const Sidebar = () => {
               className="dark-logo"
             />
             <img
-              src="vendors/images/hyundai-motor-company-logo.svg"
+              src="vendors/images/hyundai-motor-company-logo-light.svg"
               alt
               className="light-logo"
             />
@@ -72,7 +72,10 @@ const Sidebar = () => {
           <div className="sidebar-menu">
             <ul id="accordion-menu">
               <li>
-                <Link to="/dashboard" className="dropdown-toggle no-arrow">
+                <Link
+                  to="/dashboard"
+                  className="dropdown-toggle no-arrow active"
+                >
                   <span className="micon dw dw-house-1" />
                   <span className="mtext">Dashboard</span>
                 </Link>
