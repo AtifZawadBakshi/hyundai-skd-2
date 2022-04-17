@@ -8,6 +8,7 @@ import moment from "moment";
 const Form = () => {
   const [date, setDate] = useState(null);
   const [workOrder, setWorkOrder] = useState(null);
+  let selectRef = null;
   let modelList = [
     { label: "CRETA 1.6 GL", value: "CRETA 1.6 GL" },
     { label: "CRETA 2.6 GL", value: "CRETA 2.6 GL" },
@@ -41,6 +42,15 @@ const Form = () => {
     list.splice(index, 1);
     setKits(list);
   };
+  const handleResetButton = () => {
+    reset();
+  };
+
+  function reset() {
+    setDate(null);
+    setWorkOrder("");
+    setKits([]);
+  }
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
@@ -55,6 +65,7 @@ const Form = () => {
         kits: kits,
       })
       .then((res) => {
+        reset();
         Helper.alertMessage("success", "Successfully Added");
       })
       .catch(function (res) {
@@ -228,7 +239,11 @@ const Form = () => {
           >
             Submit
           </button>
-          <button type="reset" className="btn btn-info me-1 mb-1 ml-2">
+          <button
+            type="reset"
+            onClick={handleResetButton}
+            className="btn btn-info me-1 mb-1 ml-2"
+          >
             Reset
           </button>
           <button
