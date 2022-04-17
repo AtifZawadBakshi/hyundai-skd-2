@@ -5,6 +5,8 @@ import Login from "../Components/Auth/Login";
 import Logout from "../Components/Auth/Logout";
 import InwardCheck from "../Components/InwardCheck/InwardCheck";
 import KitsInward from "../Components/KitsInward/KitsInward";
+import Setting from "../Components/Setting/Setting";
+import Profile from "../Components/Profile/Profile";
 // var user = JSON.parse(localStorage.getItem("user"));
 // let isLoggedIn = false;
 // if (user != null) {
@@ -41,6 +43,8 @@ const AppLayout = () => (
         path="/inward-check"
         component={(props) => <InwardCheck {...props} />}
       />
+      <Route path="/profile" component={(props) => <Profile {...props} />} />
+      <Route path="/setting" component={(props) => <Setting {...props} />} />
       <Route path="/login" component={(props) => <Login {...props} />} />
       <Route path="/logout" component={(props) => <Logout {...props} />} />
     </RequireAuth>
