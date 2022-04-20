@@ -14,8 +14,8 @@ function App() {
         <Header />
         <Sidebar />
         <div className="mobile-menu-overlay" />
-        <div class="main-container">
-          <div class="xs-pd-20-10 pd-ltr-20">
+        <div className="main-container">
+          <div className="xs-pd-20-10 pd-ltr-20">
             <AppLayout />
             <Footer />
           </div>

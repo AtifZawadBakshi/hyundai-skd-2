@@ -244,6 +244,7 @@ const Form = () => {
             onClick={handleResetButton}
             className="btn btn-info me-1 mb-1 ml-2"
           >
+            <span className="micon dw dw-refresh mt-2 mr-2" />
             Reset
           </button>
           <button

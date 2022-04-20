@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Form from "./Form";
 import Table from "./Table";
+import CrudTable from "./CrudTable";
 const Dashboard = () => {
   return (
     <>
@@ -16,8 +17,15 @@ const Dashboard = () => {
         <div className="clearfix">
           <h4 className="text-blue h3 mb-4">Raw Material Inawrd Check</h4>
         </div>
-        <Table />
+        <CrudTable />
       </div>
+      {/* <div className="pd-20 card-box mb-30">
+        <div className="clearfix">
+          <h4 className="text-blue h3 mb-4">Raw Material Inawrd Check</h4>
+        </div>
+
+        <Table />
+      </div> */}
     </>
   );
 };
