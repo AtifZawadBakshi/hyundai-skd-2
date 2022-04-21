@@ -3,108 +3,112 @@ import Select from "react-select";
 import axios from "axios";
 import * as Helper from "../../Layouts/Helper";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import Swal from "sweetalert2";
 const CrudTable = () => {
-  const [kits, setKits] = useState([
-    {
-      id: 4,
-      Model: "demomodel1",
-      Body: "body2",
-      Lot_No: "DEMOLOTNO1",
-      Variant: "demovariant1",
-      Order: {
-        mrr_date: "18-4-2022",
-        mrr_no: "34232",
-      },
-    },
-    {
-      id: 5,
-      Model: "CRETA 1.6GL",
-      Body: "body2",
-      Lot_No: "LOT2",
-      Variant: "variant2",
-      Order: {
-        mrr_date: "18-4-2022",
-        mrr_no: "34232",
-      },
-    },
-    {
-      id: 7,
-      Model: "CRETA 1.6GL",
-      Body: "body3",
-      Lot_No: "LOT2",
-      Variant: "variant2",
-      Order: {
-        mrr_date: "18-4-2022",
-        mrr_no: "39632",
-      },
-    },
-    {
-      id: 8,
-      Model: "CRETA 5.6GL",
-      Body: "body4",
-      Lot_No: "LOT2",
-      Variant: "variant2",
-      Order: {
-        mrr_date: "18-4-2022",
-        mrr_no: "39632",
-      },
-    },
-    {
-      id: 9,
-      Model: "CRETA 1.6 GL",
-      Body: "MA3ENGL1S673532",
-      Lot_No: "BGH2100015",
-      Variant: "Variant1",
-      Order: {
-        mrr_date: "18-04-2022",
-        mrr_no: "E2104B010A03A",
-      },
-    },
-    {
-      id: 10,
-      Model: "CRETA 2.6 GL",
-      Body: "MA3ENGL1S677657",
-      Lot_No: "BGH2100453",
-      Variant: "Variant2",
-      Order: {
-        mrr_date: "18-04-2022",
-        mrr_no: "E2104B010A03A",
-      },
-    },
-    {
-      id: 11,
-      Model: "CRETA 3.6 GL",
-      Body: "MA3ENGL1S676756",
-      Lot_No: "BGH2108795",
-      Variant: "Variant3",
-      Order: {
-        mrr_date: "18-04-2022",
-        mrr_no: "E2104B010A03A",
-      },
-    },
-    {
-      id: 12,
-      Model: "CRETA 4.6 GL",
-      Body: "MA3ENGL1S672378",
-      Lot_No: "BGH2107525",
-      Variant: "Variant4",
-      Order: {
-        mrr_date: "18-04-2022",
-        mrr_no: "E2104B010A03A",
-      },
-    },
-    {
-      id: 13,
-      Model: "CRETA 5.6 GL",
-      Body: "MA3ENGL1S676543",
-      Lot_No: "BGH2105679",
-      Variant: "Variant5",
-      Order: {
-        mrr_date: "18-04-2022",
-        mrr_no: "E2104B010A03A",
-      },
-    },
-  ]);
+  //   const [kits, setKits] = useState([
+  //     {
+  //       id: 4,
+  //       Model: "demomodel1",
+  //       Body: "body2",
+  //       Lot_No: "DEMOLOTNO1",
+  //       Variant: "demovariant1",
+  //       Order: {
+  //         mrr_date: "18-4-2022",
+  //         mrr_no: "34232",
+  //       },
+  //     },
+  //     {
+  //       id: 5,
+  //       Model: "CRETA 1.6GL",
+  //       Body: "body2",
+  //       Lot_No: "LOT2",
+  //       Variant: "variant2",
+  //       Order: {
+  //         mrr_date: "18-4-2022",
+  //         mrr_no: "34232",
+  //       },
+  //     },
+  //     {
+  //       id: 7,
+  //       Model: "CRETA 1.6GL",
+  //       Body: "body3",
+  //       Lot_No: "LOT2",
+  //       Variant: "variant2",
+  //       Order: {
+  //         mrr_date: "18-4-2022",
+  //         mrr_no: "39632",
+  //       },
+  //     },
+  //     {
+  //       id: 8,
+  //       Model: "CRETA 5.6GL",
+  //       Body: "body4",
+  //       Lot_No: "LOT2",
+  //       Variant: "variant2",
+  //       Order: {
+  //         mrr_date: "18-4-2022",
+  //         mrr_no: "39632",
+  //       },
+  //     },
+  //     {
+  //       id: 9,
+  //       Model: "CRETA 1.6 GL",
+  //       Body: "MA3ENGL1S673532",
+  //       Lot_No: "BGH2100015",
+  //       Variant: "Variant1",
+  //       Order: {
+  //         mrr_date: "18-04-2022",
+  //         mrr_no: "E2104B010A03A",
+  //       },
+  //     },
+  //     {
+  //       id: 10,
+  //       Model: "CRETA 2.6 GL",
+  //       Body: "MA3ENGL1S677657",
+  //       Lot_No: "BGH2100453",
+  //       Variant: "Variant2",
+  //       Order: {
+  //         mrr_date: "18-04-2022",
+  //         mrr_no: "E2104B010A03A",
+  //       },
+  //     },
+  //     {
+  //       id: 11,
+  //       Model: "CRETA 3.6 GL",
+  //       Body: "MA3ENGL1S676756",
+  //       Lot_No: "BGH2108795",
+  //       Variant: "Variant3",
+  //       Order: {
+  //         mrr_date: "18-04-2022",
+  //         mrr_no: "E2104B010A03A",
+  //       },
+  //     },
+  //     {
+  //       id: 12,
+  //       Model: "CRETA 4.6 GL",
+  //       Body: "MA3ENGL1S672378",
+  //       Lot_No: "BGH2107525",
+  //       Variant: "Variant4",
+  //       Order: {
+  //         mrr_date: "18-04-2022",
+  //         mrr_no: "E2104B010A03A",
+  //       },
+  //     },
+  //     {
+  //       id: 13,
+  //       Model: "CRETA 5.6 GL",
+  //       Body: "MA3ENGL1S676543",
+  //       Lot_No: "BGH2105679",
+  //       Variant: "Variant5",
+  //       Order: {
+  //         mrr_date: "18-04-2022",
+  //         mrr_no: "E2104B010A03A",
+  //       },
+  //     },
+  //   ]);
   let modelList = [
     { label: "CRETA 1.6 GL", value: "CRETA 1.6 GL" },
     { label: "CRETA 2.6 GL", value: "CRETA 2.6 GL" },
@@ -119,24 +123,43 @@ const CrudTable = () => {
     { label: "Variant4", value: "Variant4" },
     { label: "Variant5", value: "Variant5" },
   ];
-  // const [kits, setKits] = useState([]);
+  const [kits, setKits] = useState([]);
   const [show, setShow] = useState(false);
+  const [toDate, setToDate] = useState();
+  const [fromDate, setFromDate] = useState();
+  const [id, setId] = useState(null);
   const [model, setModel] = useState(null);
+  const [worder, setWorder] = useState(null);
+  const [date, setDate] = useState();
+  const [orderid, setOrderid] = useState(null);
   const [body, setBody] = useState(null);
   const [variant, setVariant] = useState(null);
   const [lot, setLot] = useState(null);
-  // useEffect(async () => {
-  //   await axios
-  //     .get("http://10.100.80.141:8000/kits/table")
-  //     .then((response) => {
-  //       setKits(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       Helper.alertMessage("error", error);
-  //     });
-  // }, []);
-
+  useEffect(async () => {
+    await axios
+      .get("http://10.100.80.141:8000/kits/table")
+      .then((response) => {
+        setKits(response.data);
+      })
+      .catch(function (error) {
+        Helper.alertMessage("error", error);
+      });
+  }, []);
+  function fetchKitList() {
+    axios
+      .get("http://10.100.80.141:8000/kits/table")
+      .then((response) => {
+        setKits(response.data);
+      })
+      .catch(function (error) {
+        Helper.alertMessage("error", error);
+      });
+  }
   const handleShow = (kit) => {
+    console.log(moment(kit.Order.mrr_date).format("MMMM d, yyyy"));
+    setWorder(kit.Order.mrr_no);
+    setOrderid(kit.Order.id);
+    setId(kit.id);
     setModel(kit.Model);
     setBody(kit.Body);
     setVariant(kit.Variant);
@@ -152,12 +175,48 @@ const CrudTable = () => {
   const handleChangeVariant = (value) => {
     setVariant(value.value);
   };
-  const handleSubmit = () => {
-    console.log("model:", model);
-    console.log("body:", body);
-    console.log("variant:", variant);
-    console.log("lot:", lot);
-  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .put("http://10.100.80.141:8000/kits/update" + "/" + id, {
+        Model: model,
+        Body: body,
+        Lot_No: lot,
+        Variant: variant,
+        Order: orderid,
+      })
+      .then((res) => {
+        fetchKitList();
+        setShow(false);
+        Helper.alertMessage("success", "Successfully Updated");
+      })
+      .catch(function (res) {
+        Helper.alertMessage("error", res);
+      });
+    axios
+      .put("http://10.100.80.141:8000/kits/order_update" + "/" + orderid, {
+        mrr_no: worder,
+        mrr_date: moment(date).format("DD-MM-yyyy"),
+      })
+      .then((res) => {
+        Helper.alertMessage("success", "Successfully Updated");
+      })
+      .catch(function (res) {
+        Helper.alertMessage("error", res);
+      });
+  }
+  function handleDelete(id) {
+    axios
+      .delete("http://10.100.80.141:8000/kits/update" + "/" + id)
+      .then((response) => {
+        fetchKitList();
+        Swal.fire("Deleted!", "Successfully", "success");
+        Helper.alertMessage("success", "Successfully Deleted");
+      })
+      .catch((error) => {
+        Helper.alertMessage("error", error);
+      });
+  }
   return (
     <div className="row match-height">
       <div className="col-12">
@@ -165,20 +224,24 @@ const CrudTable = () => {
           <div className="col-lg-3 col-md-6 col-12">
             <div className="form-group">
               <label htmlFor="first-name-column">From</label>
-              <input
-                className="form-control date-picker"
-                placeholder="Select Date"
-                type="text"
+              <DatePicker
+                selected={fromDate}
+                onChange={(date) => setFromDate(date)}
+                dateFormat="MMMM d, yyyy"
+                className="form-control"
+                placeholderText="Select a date"
               />
             </div>
           </div>
           <div className="col-lg-3 col-md-6 col-12">
             <div className="form-group">
               <label htmlFor="first-name-column">To</label>
-              <input
-                className="form-control date-picker"
-                placeholder="Select Date"
-                type="text"
+              <DatePicker
+                selected={toDate}
+                onChange={(date) => setToDate(date)}
+                dateFormat="MMMM d, yyyy"
+                className="form-control"
+                placeholderText="Select a date"
               />
             </div>
           </div>
@@ -292,6 +355,26 @@ const CrudTable = () => {
                             </i>
                           </button>
                           <button
+                            onClick={() => {
+                              Swal.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, delete it!",
+                              }).then((result) => {
+                                if (result.value) {
+                                  return handleDelete(kit.id);
+                                }
+                              });
+                            }}
+                            // onClick={() => {
+                            //   if (window.confirm("Delete the item?")) {
+                            //     return handleDelete(kit.id);
+                            //   }
+                            // }}
                             className="btn text-danger btn-act"
                             data-toggle="modal"
                           >
@@ -319,8 +402,10 @@ const CrudTable = () => {
                                     </Form.Label>
                                     <Form.Control
                                       type="text"
-                                      placeholder={kit.Order.mrr_no}
-                                      disabled
+                                      value={worder}
+                                      onChange={(e) =>
+                                        setWorder(e.target.value)
+                                      }
                                       required
                                     />
                                   </Form.Group>
@@ -331,11 +416,12 @@ const CrudTable = () => {
                                       Date
                                       <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
-                                    <Form.Control
-                                      placeholder={kit.Order.mrr_date}
-                                      disabled
-                                      type="text"
-                                      required
+                                    <DatePicker
+                                      selected={date}
+                                      onChange={(event) => setDate(event)}
+                                      dateFormat="MMMM d, yyyy"
+                                      className="form-control"
+                                      placeholderText={kit.Order.mrr_date}
                                     />
                                   </Form.Group>
                                 </Col>

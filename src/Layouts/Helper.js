@@ -21,17 +21,17 @@ export function alertMessage(type, message) {
   }
   contents += "</ul>";
 
-  if (type == "success") {
+  if (type === "success") {
     Toast.fire({
       icon: type,
       title: message,
     });
-  } else if (type == "validation") {
+  } else if (type === "validation") {
     Toast.fire({
       icon: "error",
       title: contents,
     });
-  } else if (type == "error") {
+  } else if (type === "error") {
     Toast.fire({
       icon: "error",
       title: message,

@@ -8,7 +8,7 @@ import moment from "moment";
 const Form = () => {
   const [date, setDate] = useState(null);
   const [workOrder, setWorkOrder] = useState(null);
-  let selectRef = null;
+
   let modelList = [
     { label: "CRETA 1.6 GL", value: "CRETA 1.6 GL" },
     { label: "CRETA 2.6 GL", value: "CRETA 2.6 GL" },
@@ -95,6 +95,7 @@ const Form = () => {
               onChange={(date) => setDate(date)}
               dateFormat="MMMM d, yyyy"
               className="form-control"
+              placeholderText="Select a date"
             />
           </div>
         </div>
@@ -244,7 +245,6 @@ const Form = () => {
             onClick={handleResetButton}
             className="btn btn-info me-1 mb-1 ml-2"
           >
-            <span className="micon dw dw-refresh mt-2 mr-2" />
             Reset
           </button>
           <button

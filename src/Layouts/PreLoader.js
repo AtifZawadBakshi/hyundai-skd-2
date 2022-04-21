@@ -7,7 +7,7 @@ const PreLoader = () => {
         <div className="loader-logo">
           <img
             src="vendors/images/hyundai-motor-company-logo.svg"
-            alt
+            alt="logo"
             width="300"
             height="300"
           />

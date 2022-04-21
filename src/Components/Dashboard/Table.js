@@ -85,10 +85,7 @@ const Table = () => {
               >
                 Excel Download
                 <span className="badge bg-transparent">
-                  <i
-                    className="icon-copy fa fa-download"
-                    aria-hidden="true"
-                  ></i>
+                  <i class="icon-copy fa fa-download" aria-hidden="true"></i>
                 </span>
               </button>
             </div>
