@@ -54,13 +54,9 @@ const Form = () => {
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
-
-    console.log("Inward Date: ", moment(date).format("DD-MM-yyyy"));
-    console.log("W/Order No: ", workOrder);
-    console.log("kits: ", kits);
     axios
       .post("http://10.100.80.141:8000/kits/order_add/", {
-        mrr_date: moment(date).format("DD-MM-yyyy"),
+        mrr_date: moment(date).format("yyyy-MM-DD"),
         mrr_no: workOrder,
         kits: kits,
       })

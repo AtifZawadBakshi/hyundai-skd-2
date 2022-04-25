@@ -8,107 +8,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import Swal from "sweetalert2";
 const CrudTable = () => {
-  //   const [kits, setKits] = useState([
-  //     {
-  //       id: 4,
-  //       Model: "demomodel1",
-  //       Body: "body2",
-  //       Lot_No: "DEMOLOTNO1",
-  //       Variant: "demovariant1",
-  //       Order: {
-  //         mrr_date: "18-4-2022",
-  //         mrr_no: "34232",
-  //       },
-  //     },
-  //     {
-  //       id: 5,
-  //       Model: "CRETA 1.6GL",
-  //       Body: "body2",
-  //       Lot_No: "LOT2",
-  //       Variant: "variant2",
-  //       Order: {
-  //         mrr_date: "18-4-2022",
-  //         mrr_no: "34232",
-  //       },
-  //     },
-  //     {
-  //       id: 7,
-  //       Model: "CRETA 1.6GL",
-  //       Body: "body3",
-  //       Lot_No: "LOT2",
-  //       Variant: "variant2",
-  //       Order: {
-  //         mrr_date: "18-4-2022",
-  //         mrr_no: "39632",
-  //       },
-  //     },
-  //     {
-  //       id: 8,
-  //       Model: "CRETA 5.6GL",
-  //       Body: "body4",
-  //       Lot_No: "LOT2",
-  //       Variant: "variant2",
-  //       Order: {
-  //         mrr_date: "18-4-2022",
-  //         mrr_no: "39632",
-  //       },
-  //     },
-  //     {
-  //       id: 9,
-  //       Model: "CRETA 1.6 GL",
-  //       Body: "MA3ENGL1S673532",
-  //       Lot_No: "BGH2100015",
-  //       Variant: "Variant1",
-  //       Order: {
-  //         mrr_date: "18-04-2022",
-  //         mrr_no: "E2104B010A03A",
-  //       },
-  //     },
-  //     {
-  //       id: 10,
-  //       Model: "CRETA 2.6 GL",
-  //       Body: "MA3ENGL1S677657",
-  //       Lot_No: "BGH2100453",
-  //       Variant: "Variant2",
-  //       Order: {
-  //         mrr_date: "18-04-2022",
-  //         mrr_no: "E2104B010A03A",
-  //       },
-  //     },
-  //     {
-  //       id: 11,
-  //       Model: "CRETA 3.6 GL",
-  //       Body: "MA3ENGL1S676756",
-  //       Lot_No: "BGH2108795",
-  //       Variant: "Variant3",
-  //       Order: {
-  //         mrr_date: "18-04-2022",
-  //         mrr_no: "E2104B010A03A",
-  //       },
-  //     },
-  //     {
-  //       id: 12,
-  //       Model: "CRETA 4.6 GL",
-  //       Body: "MA3ENGL1S672378",
-  //       Lot_No: "BGH2107525",
-  //       Variant: "Variant4",
-  //       Order: {
-  //         mrr_date: "18-04-2022",
-  //         mrr_no: "E2104B010A03A",
-  //       },
-  //     },
-  //     {
-  //       id: 13,
-  //       Model: "CRETA 5.6 GL",
-  //       Body: "MA3ENGL1S676543",
-  //       Lot_No: "BGH2105679",
-  //       Variant: "Variant5",
-  //       Order: {
-  //         mrr_date: "18-04-2022",
-  //         mrr_no: "E2104B010A03A",
-  //       },
-  //     },
-  //   ]);
   let modelList = [
     { label: "CRETA 1.6 GL", value: "CRETA 1.6 GL" },
     { label: "CRETA 2.6 GL", value: "CRETA 2.6 GL" },
@@ -123,14 +22,30 @@ const CrudTable = () => {
     { label: "Variant4", value: "Variant4" },
     { label: "Variant5", value: "Variant5" },
   ];
+  let searchModelList = [
+    { label: "Select Model", value: null },
+    { label: "CRETA 1.6 GL", value: "CRETA 1.6 GL" },
+    { label: "CRETA 2.6 GL", value: "CRETA 2.6 GL" },
+    { label: "CRETA 3.6 GL", value: "CRETA 3.6 GL" },
+    { label: "CRETA 4.6 GL", value: "CRETA 4.6 GL" },
+    { label: "CRETA 5.6 GL", value: "CRETA 5.6 GL" },
+  ];
+  let statusList = [
+    { label: "Select Status", value: null },
+    { label: "Processed", value: "Processed" },
+    { label: "Storage", value: "Storage" },
+  ];
   const [kits, setKits] = useState([]);
   const [show, setShow] = useState(false);
-  const [toDate, setToDate] = useState();
-  const [fromDate, setFromDate] = useState();
+  const [toDate, setToDate] = useState(null);
+  const [fromDate, setFromDate] = useState(null);
   const [id, setId] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [datePlaceholder, setDatePlaceholder] = useState(null);
+  const [searchModel, setSearchModel] = useState(null);
   const [model, setModel] = useState(null);
   const [worder, setWorder] = useState(null);
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(null);
   const [orderid, setOrderid] = useState(null);
   const [body, setBody] = useState(null);
   const [variant, setVariant] = useState(null);
@@ -162,12 +77,20 @@ const CrudTable = () => {
     setId(kit.id);
     setModel(kit.Model);
     setBody(kit.Body);
+    setDate(null);
+    setDatePlaceholder(kit.Order.mrr_date);
     setVariant(kit.Variant);
     setLot(kit.Lot_No);
     setShow(true);
   };
   const handleClose = () => {
     setShow(false);
+  };
+  const handleSearchModel = (value) => {
+    setSearchModel(value.value);
+  };
+  const handleSearchStatus = (value) => {
+    setStatus(value.value);
   };
   const handleChangeModel = (value) => {
     setModel(value.value);
@@ -196,7 +119,7 @@ const CrudTable = () => {
     axios
       .put("http://10.100.80.141:8000/kits/order_update" + "/" + orderid, {
         mrr_no: worder,
-        mrr_date: moment(date).format("DD-MM-yyyy"),
+        mrr_date: moment(date).format("yyyy-MM-DD"),
       })
       .then((res) => {
         Helper.alertMessage("success", "Successfully Updated");
@@ -217,16 +140,42 @@ const CrudTable = () => {
         Helper.alertMessage("error", error);
       });
   }
+  const handleSearchButton = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://10.100.80.141:8000/kits/search/", {
+        Model: searchModel,
+        fromDate: fromDate && moment(fromDate).format("yyyy-MM-DD"),
+        toDate: toDate && moment(toDate).format("yyyy-MM-DD"),
+      })
+      .then((response) => {
+        setKits(response.data);
+      })
+      .catch(function (error) {
+        Helper.alertMessage("error", error);
+      });
+
+    console.log(
+      "From Date: ",
+      fromDate && moment(fromDate).format("DD-MM-yyyy")
+    );
+
+    console.log("To Date ", toDate && moment(toDate).format("DD-MM-yyyy"));
+    console.log("Model:", searchModel);
+    console.log("Status:", status);
+  };
   return (
     <div className="row match-height">
       <div className="col-12">
         <div className="row">
           <div className="col-lg-3 col-md-6 col-12">
             <div className="form-group">
-              <label htmlFor="first-name-column">From</label>
+              <label htmlFor="first-name-column">From Date</label>
               <DatePicker
                 selected={fromDate}
-                onChange={(date) => setFromDate(date)}
+                onChange={(date) => {
+                  setFromDate(date);
+                }}
                 dateFormat="MMMM d, yyyy"
                 className="form-control"
                 placeholderText="Select a date"
@@ -235,7 +184,7 @@ const CrudTable = () => {
           </div>
           <div className="col-lg-3 col-md-6 col-12">
             <div className="form-group">
-              <label htmlFor="first-name-column">To</label>
+              <label htmlFor="first-name-column">To Date</label>
               <DatePicker
                 selected={toDate}
                 onChange={(date) => setToDate(date)}
@@ -250,15 +199,11 @@ const CrudTable = () => {
               <label htmlFor="last-name-column">Model</label>
 
               <fieldset className="form-group">
-                <select
-                  className="custom-select2 form-control"
-                  style={{ width: "100%", height: 38 }}
-                >
-                  <option value="">Select Model</option>
-                  <option value="Amsterdam">India</option>
-                  <option value="Berlin">UK</option>
-                  <option value="Frankfurt">US</option>
-                </select>
+                <Select
+                  options={searchModelList}
+                  placeholder="Select Model"
+                  onChange={handleSearchModel}
+                />
               </fieldset>
             </div>
           </div>
@@ -267,15 +212,12 @@ const CrudTable = () => {
               <label htmlFor="last-name-column">Status</label>
 
               <fieldset className="form-group">
-                <select
-                  className="custom-select2 form-control"
-                  style={{ width: "100%", height: 38 }}
-                >
-                  <option value="">Select Status</option>
-
-                  <option value="Berlin">Processed</option>
-                  <option value="Frankfurt">Storage</option>
-                </select>
+                <Select
+                  options={statusList}
+                  placeholder="Select Status"
+                  onChange={handleSearchStatus}
+                  isDisabled
+                />
               </fieldset>
             </div>
           </div>
@@ -285,6 +227,7 @@ const CrudTable = () => {
                 style={{ marginTop: "30px" }}
                 type="button"
                 className="btn btn-info btn-icon icon-left"
+                onClick={handleSearchButton}
               >
                 Search
                 <span className="badge bg-transparent">
@@ -326,10 +269,6 @@ const CrudTable = () => {
               <tbody>
                 {kits &&
                   kits.map((kit, index) => {
-                    // setModel(kit.Model);
-                    // setBody(kit.Body);
-                    // setVariant(kit.Variant);
-                    // setLot(kit.Lot_No);
                     return (
                       <tr key={index}>
                         <td>{index + 1}</td>
@@ -370,11 +309,6 @@ const CrudTable = () => {
                                 }
                               });
                             }}
-                            // onClick={() => {
-                            //   if (window.confirm("Delete the item?")) {
-                            //     return handleDelete(kit.id);
-                            //   }
-                            // }}
                             className="btn text-danger btn-act"
                             data-toggle="modal"
                           >
@@ -421,7 +355,7 @@ const CrudTable = () => {
                                       onChange={(event) => setDate(event)}
                                       dateFormat="MMMM d, yyyy"
                                       className="form-control"
-                                      placeholderText={kit.Order.mrr_date}
+                                      placeholderText={datePlaceholder}
                                     />
                                   </Form.Group>
                                 </Col>
