@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { URL, ORDER_ADD } from "../../Axios/Api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Helper from "../../Layouts/Helper";
@@ -55,7 +56,7 @@ const Form = () => {
   const handleSubmitButton = (e) => {
     e.preventDefault();
     axios
-      .post("http://10.100.80.141:8000/kits/order_add/", {
+      .post(URL + ORDER_ADD, {
         mrr_date: moment(date).format("yyyy-MM-DD"),
         mrr_no: workOrder,
         kits: kits,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { URL, TABLE, UPDATE, SEARCH } from "../../Axios/Api";
 import Select from "react-select";
 import axios from "axios";
 import * as Helper from "../../Layouts/Helper";
@@ -52,7 +53,7 @@ const CrudTable = () => {
   const [lot, setLot] = useState(null);
   useEffect(async () => {
     await axios
-      .get("http://10.100.80.141:8000/kits/table")
+      .get(URL + TABLE)
       .then((response) => {
         setKits(response.data);
       })
@@ -62,7 +63,8 @@ const CrudTable = () => {
   }, []);
   function fetchKitList() {
     axios
-      .get("http://10.100.80.141:8000/kits/table")
+      .get(URL + TABLE)
+
       .then((response) => {
         setKits(response.data);
       })
@@ -101,12 +103,13 @@ const CrudTable = () => {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .put("http://10.100.80.141:8000/kits/update" + "/" + id, {
+      .put(URL + UPDATE + "/" + id, {
         Model: model,
         Body: body,
         Lot_No: lot,
         Variant: variant,
-        Order: orderid,
+        mrr_date: moment(date).format("yyyy-MM-DD"),
+        mrr_no: worder,
       })
       .then((res) => {
         fetchKitList();
@@ -116,21 +119,21 @@ const CrudTable = () => {
       .catch(function (res) {
         Helper.alertMessage("error", res);
       });
-    axios
-      .put("http://10.100.80.141:8000/kits/order_update" + "/" + orderid, {
-        mrr_no: worder,
-        mrr_date: moment(date).format("yyyy-MM-DD"),
-      })
-      .then((res) => {
-        Helper.alertMessage("success", "Successfully Updated");
-      })
-      .catch(function (res) {
-        Helper.alertMessage("error", res);
-      });
+    // axios
+    //   .put("http://10.100.80.141:8000/kits/order_update" + "/" + orderid, {
+    //     mrr_no: worder,
+    //     mrr_date: moment(date).format("yyyy-MM-DD"),
+    //   })
+    //   .then((res) => {
+    //     Helper.alertMessage("success", "Successfully Updated");
+    //   })
+    //   .catch(function (res) {
+    //     Helper.alertMessage("error", res);
+    //   });
   }
   function handleDelete(id) {
     axios
-      .delete("http://10.100.80.141:8000/kits/update" + "/" + id)
+      .delete(URL + UPDATE + "/" + id)
       .then((response) => {
         fetchKitList();
         Swal.fire("Deleted!", "Successfully", "success");
@@ -143,7 +146,8 @@ const CrudTable = () => {
   const handleSearchButton = (e) => {
     e.preventDefault();
     axios
-      .post("http://10.100.80.141:8000/kits/search/", {
+      .post("http://10.100.20.127:8000/kits/search/", {
+        // .post("http://10.100.80.141:8000/kits/search/", {
         Model: searchModel,
         fromDate: fromDate && moment(fromDate).format("yyyy-MM-DD"),
         toDate: toDate && moment(toDate).format("yyyy-MM-DD"),
@@ -267,6 +271,11 @@ const CrudTable = () => {
                 </tr>
               </thead>
               <tbody>
+                {kits === [] && (
+                  <tr>
+                    <td>No Data Exists</td>
+                  </tr>
+                )}
                 {kits &&
                   kits.map((kit, index) => {
                     return (
