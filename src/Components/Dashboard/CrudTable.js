@@ -146,8 +146,8 @@ const CrudTable = () => {
   const handleSearchButton = (e) => {
     e.preventDefault();
     axios
-      .post("http://10.100.20.127:8000/kits/search/", {
-        // .post("http://10.100.80.141:8000/kits/search/", {
+      .post(URL+SEARCH, {
+        
         Model: searchModel,
         fromDate: fromDate && moment(fromDate).format("yyyy-MM-DD"),
         toDate: toDate && moment(toDate).format("yyyy-MM-DD"),
