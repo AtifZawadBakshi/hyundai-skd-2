@@ -102,23 +102,44 @@ const CrudTable = () => {
   };
   function handleSubmit(e) {
     e.preventDefault();
-    axios
-      .put(URL + UPDATE + "/" + id, {
-        Model: model,
-        Body: body,
-        Lot_No: lot,
-        Variant: variant,
-        mrr_date: moment(date).format("yyyy-MM-DD"),
-        mrr_no: worder,
-      })
-      .then((res) => {
-        fetchKitList();
-        setShow(false);
-        Helper.alertMessage("success", "Successfully Updated");
-      })
-      .catch(function (res) {
-        Helper.alertMessage("error", res);
-      });
+    if (date !== null) {
+      axios
+        .put(URL + UPDATE + "/" + id, {
+          Model: model,
+          Body: body,
+          Lot_No: lot,
+          Variant: variant,
+          mrr_date: moment(date).format("yyyy-MM-DD"),
+          mrr_no: worder,
+        })
+        .then((res) => {
+          fetchKitList();
+          setShow(false);
+          Helper.alertMessage("success", "Successfully Updated");
+        })
+        .catch(function (res) {
+          Helper.alertMessage("error", res);
+        });
+    } else {
+      axios
+        .put(URL + UPDATE + "/" + id, {
+          Model: model,
+          Body: body,
+          Lot_No: lot,
+          Variant: variant,
+          mrr_date: date,
+          mrr_no: worder,
+        })
+        .then((res) => {
+          fetchKitList();
+          setShow(false);
+          Helper.alertMessage("success", "Successfully Updated");
+        })
+        .catch(function (res) {
+          Helper.alertMessage("error", res);
+        });
+    }
+
     // axios
     //   .put("http://10.100.80.141:8000/kits/order_update" + "/" + orderid, {
     //     mrr_no: worder,
@@ -146,8 +167,7 @@ const CrudTable = () => {
   const handleSearchButton = (e) => {
     e.preventDefault();
     axios
-      .post(URL+SEARCH, {
-        
+      .post(URL + SEARCH, {
         Model: searchModel,
         fromDate: fromDate && moment(fromDate).format("yyyy-MM-DD"),
         toDate: toDate && moment(toDate).format("yyyy-MM-DD"),
