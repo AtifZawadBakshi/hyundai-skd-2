@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const Sidebar = () => {
   return (
     <>
@@ -72,13 +72,117 @@ const Sidebar = () => {
           <div className="sidebar-menu">
             <ul id="accordion-menu">
               <li>
-                <Link
+                <NavLink
                   to="/dashboard"
-                  className="dropdown-toggle no-arrow active"
+                  style={{ textDecoration: "none" }}
+                  className="dropdown-toggle no-arrow "
                 >
                   <span className="micon dw dw-house-1" />
                   <span className="mtext">Dashboard</span>
-                </Link>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/vin-search"
+                  style={{ textDecoration: "none" }}
+                  className="dropdown-toggle no-arrow"
+                >
+                  <span className="micon dw dw-search" />
+                  <span className="mtext">Operation VIN Search</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/vin-tracking"
+                  className="dropdown-toggle no-arrow"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span className="micon dw dw-map" />
+                  <span className="mtext">VIN Tracking</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/history-card"
+                  className="dropdown-toggle no-arrow"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span className="micon dw dw-board" />
+                  <span className="mtext">Vehicle History Card</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/pdi-delivery-inspection"
+                  className="dropdown-toggle no-arrow"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span className="micon dw dw-check" />
+                  <span className="mtext">Delivery Inspection</span>
+                </NavLink>
+              </li>
+              <li className="dropdown">
+                <a className="dropdown-toggle">
+                  <span className="micon dw dw-car" />
+                  <span className="mtext">Inventory Management</span>
+                </a>
+                <ul className="submenu">
+                  <li>
+                    <NavLink
+                      to="/inward-material"
+                      className="dropdown-toggle no-arrow"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span className="mtext" style={{ fontSize: "16px" }}>
+                        INWARD MATERIAL
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/outward-material"
+                      className="dropdown-toggle no-arrow"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span className="mtext" style={{ fontSize: "15px" }}>
+                        OUTWARD MATERIAL
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/store-inventory-status"
+                      className="dropdown-toggle no-arrow"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span className="mtext" style={{ fontSize: "15px" }}>
+                        STORE INVENTORY STATUS
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/part-inventory-status"
+                      className="dropdown-toggle no-arrow"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span className="mtext" style={{ fontSize: "15px" }}>
+                        PART INVENTORY STATUS
+                      </span>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <NavLink
+                  to="/offline-status"
+                  className="dropdown-toggle no-arrow"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span className="micon dw dw-stop" />
+                  <span className="mtext">Offline Status</span>
+                </NavLink>
               </li>
               {/* <li>
                 <Link to="/kits-inward" className="dropdown-toggle no-arrow">

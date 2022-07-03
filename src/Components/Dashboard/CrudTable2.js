@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { URL, TABLE, UPDATE, SEARCH, ORDER_LIST } from "../../Axios/Api";
+import { URL, TABLE, UPDATE, SEARCH } from "../../Axios/Api";
 import Select from "react-select";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
@@ -61,9 +61,9 @@ const CrudTable = () => {
 
   function fetchKitList() {
     axios
-      .get(URL + ORDER_LIST + "?page=" + page)
+      .get(URL + "?page=" + page)
       .then((response) => {
-        setKits(response.data.data);
+        // setKits(response.data.data);
         setPageCount(response.data.count);
         console.log(response.data.data);
       })
@@ -168,13 +168,12 @@ const CrudTable = () => {
     e.preventDefault();
     axios
       .post(URL + SEARCH, {
-        // Model: searchModel,
+        Model: searchModel,
         fromDate: fromDate && moment(fromDate).format("yyyy-MM-DD"),
         toDate: toDate && moment(toDate).format("yyyy-MM-DD"),
       })
       .then((response) => {
-        console.log(response.data.data);
-        setKits(response.data.data);
+        setKits(response.data);
       })
       .catch(function (error) {
         Helper.alertMessage("error", error);
@@ -259,7 +258,7 @@ const CrudTable = () => {
                 className="btn btn-info btn-icon icon-left"
                 onClick={handleSearchButton}
               >
-                Search
+                Search i
                 <span className="badge bg-transparent">
                   <i class="icon-copy fa fa-search" aria-hidden="true"></i>
                 </span>
@@ -283,43 +282,37 @@ const CrudTable = () => {
         </div>
         <div className="table-wrapper">
           <div className="table-responsive">
-            <table
-              className="table table-striped "
-              style={{ textAlign: "center" }}
-            >
+            <table className="table table-striped ">
               <thead className="table-dark">
                 <tr>
                   <th>SN</th>
                   <th>W/Order</th>
                   <th>Date</th>
-                  <th>Totals Kits</th>
+                  <th>Model</th>
+                  <th>Body</th>
+                  <th>Variant</th>
+                  <th>Lot</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
+                {kits === [] && (
+                  <tr>
+                    <td>No Data Exists</td>
+                  </tr>
+                )}
                 {kits &&
                   kits.map((kit, index) => {
                     return (
                       <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{kit.Order.mrr_no}</td>
+                        <td>{kit.Order.mrr_date}</td>
+                        <td>{kit.Model}</td>
+                        <td>{kit.Body}</td>
+                        <td>{kit.Variant}</td>
+                        <td>{kit.Lot_No}</td>
                         <td>
-                          {page == 0 ? index + 1 : (page - 1) * 10 + index + 1}
-                        </td>
-                        <td>{kit.mrr_no}</td>
-                        <td>{kit.mrr_date}</td>
-                        <td>{kit.kits.length}</td>
-                        <td>
-                          <button
-                            className="btn text-secondary btn-act"
-                            data-toggle="modal"
-                          >
-                            <i
-                              className="material-icons"
-                              data-toggle="tooltip"
-                              title="Info"
-                            >
-                              &#9432;
-                            </i>
-                          </button>
                           <button
                             onClick={() => handleShow(kit)}
                             className="btn text-warning btn-act"
